@@ -1,0 +1,50 @@
+name: build-and-deploy-to-user-site
+
+on:
+  push:
+    branches: [ main ]   # change if your default branch differs
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Node (for build scripts)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install deps (noop if none)
+        run: npm ci || npm i
+
+      - name: Build site into dist/
+        run: npm run build
+
+      - name: Checkout target user site
+        uses: actions/checkout@v4
+        with:
+          repository: skreieweydo/skreieweydo.github.io
+          path: target
+          token: ${{ secrets.PUBLISH_TOKEN }}
+
+      - name: Sync dist → target/
+        run: rsync -av --delete dist/ target/
+
+      - name: Commit & push to user site
+        working-directory: target
+        env:
+          GIT_AUTHOR_NAME: "GitHub Actions"
+          GIT_AUTHOR_EMAIL: "actions@github.com"
+          GIT_COMMITTER_NAME: "GitHub Actions"
+          GIT_COMMITTER_EMAIL: "actions@github.com"
+        run: |
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "deploy(site): update from logworks-site @ $GITHUB_SHA"
+            git push origin HEAD:main
+          else
+            echo "No changes to deploy."
+          fi
