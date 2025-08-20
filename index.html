@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="css/main.css">
+		<script src="https://kit.fontawesome.com/aaeb479cf8.js" crossorigin="anonymous"></script>
+		<title>Skreieweydo Logworks -- Coming Soon</title>
+		<meta name="description" content="Tiny, predictable JS/TS utilities — privacy-first. @skreio/random v1.0.0 coming soon." />
+	</head>
+	<body>
+	  <!-- decorative animated background -->
+	  <div class="bg">
+		<div class="bg__gradient"></div>
+		<div class="bg__grain" aria-hidden="true"></div>
+	  </div>
+
+	  <header class="site-header" role="banner">
+		<a class="brand" href="#" aria-label="Skreieweydo Labs">
+		  <!-- minimal inline monogram -->
+		  <svg class="brand__icon" viewBox="0 0 64 64" aria-hidden="true">
+			<rect x="0" y="0" width="64" height="64" rx="14" fill="var(--slate)"></rect>
+			<rect x="42" y="15" width="3" height="15" rx="1.5" fill="var(--teal)"/>
+			<rect x="47" y="13" width="3" height="17" rx="1.5" fill="var(--teal)" opacity=".85"/>
+			<rect x="52" y="11" width="3" height="19" rx="1.5" fill="var(--teal)" opacity=".7"/>
+			<text x="12" y="46" font-size="36" font-weight="800" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" fill="white">S</text>
+		  </svg>
+		  <span class="brand__wordmark">
+			<span class="lite">Skreieweydo</span> <span class="bold">Labs</span>
+		  </span>
+		</a>
+	  </header>
+
+	  <main class="hero" role="main">
+		<h1 class="hero__title">
+		  Tiny, predictable JS/TS utilities — <span class="accent">privacy-first</span>.
+		</h1>
+
+		<!-- Typewriter lines (pure CSS). Set --chars to visible character count. -->
+		<p class="typewriter" style="--chars: 33" data-text="Coming soon: @skreio/random v1.0.0"></p>
+		<p class="typewriter delay-1" data-text="Install in seconds. Predictable errors. Typed. Zero deps."></p>
+
+		<!-- Noise → Signal reveal line -->
+		<p class="signal-reveal" aria-live="polite">
+		  Fastest path to <span class="signal">first signal</span>.
+		</p>
+
+		<nav class="links" aria-label="Quick links">
+		  <a class="btn" href="mailto:michaelrjamesjr@icloud.com">Contact</a>
+		  <a class="btn btn--ghost" href="#" aria-disabled="true">Docs (soon)</a>
+		  <a class="btn" href="https://github.com/skreieweydo">@skreio on GitHub</a>
+		</nav>
+	  </main>
+
+		<!-- Footer pinned at bottom, π link left, © text right -->
+		<footer id="ftr-bar" class="site-footer" role="contentinfo">
+		<section id="site-info" aria-label="Site info">
+		  <a class="footer-pi" href="https://github.com/website" target="_blank" rel="noopener" aria-label="Website source on GitHub">
+			&#960;
+			<span class="sr-only"> Source on GitHub</span>
+		  </a>
+		</section>
+		<section id="copyright-info">
+		  &#169; <span id="year"></span> Skreieweydo Labs. No data collected.
+		</section>
+		</footer>
+	  <script>
+		// tiny enhancement: current year (keeps HTML static otherwise)
+		document.getElementById('year').textContent = new Date().getFullYear();
+	  </script>
+<script>
+  // Auto-count characters and end the effect cleanly
+  document.querySelectorAll('.typewriter').forEach(el => {
+    const text = el.getAttribute('data-text') || '';
+    // Set --chars to the visible character count
+    el.style.setProperty('--chars', String(text.length));
+    // When the typing animation finishes, show full wrapped text (no cutoff)
+    el.addEventListener('animationend', (e) => {
+      if (e.animationName === 'typing') el.classList.add('done');
+    }, { once: true });
+  });
+</script>
+	</body>
+</html>
