@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "rm -rf dist && mkdir -p dist/css && cp index.html dist/ && cp -R css/* dist/css/",
-    "preview": "npx serve dist -l 5173"
+    "preview": "npm run build && npx serve dist -l 5173",
+	"clean": "rm -rf dist"
   },
   "repository": {
     "type": "git",

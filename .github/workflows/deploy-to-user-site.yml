@@ -19,9 +19,15 @@ jobs:
         run: |
           set -euxo pipefail
           rm -rf dist
+          # ---- whitelist only prod assets into dist ----
           mkdir -p dist/css
           cp index.html dist/
           cp -R css/* dist/css/ || true
+          # If/when you add these, uncomment as needed:
+          # mkdir -p dist/js && cp -R js/* dist/js
+          # mkdir -p dist/favicons && cp -R favicons/* dist/favicons
+          # mkdir -p dist/social && cp -R social/* dist/social/
+          # echo "skreieweydo.com" > dist/CNAME
           touch dist/.nojekyll
 
       - name: Checkout target (user site repo)
@@ -29,7 +35,7 @@ jobs:
         with:
           repository: skreieweydo/skreieweydo.github.io
           path: target
-          token: ${{ secrets.WEBSITE_TOKEN }}   # <-- your fine-grained PAT
+          token: ${{ secrets.WEBSITE_TOKEN }}
           persist-credentials: false            # IMPORTANT
           fetch-depth: 0
 
@@ -41,6 +47,7 @@ jobs:
       - name: Replace target contents with dist/
         run: |
           set -euxo pipefail
+          # Clean everything in target except .git
           find target -mindepth 1 -maxdepth 1 ! -name ".git" -exec rm -rf {} +
           cp -R dist/* target/
 
