@@ -56,16 +56,16 @@ jobs:
           GIT_AUTHOR_EMAIL: "actions@github.com"
           GIT_COMMITTER_NAME: "GitHub Actions"
           GIT_COMMITTER_EMAIL: "actions@github.com"
-          GH_PAT: ${{ secrets.WEBSITE_TOKEN }}
+          GH_PAT: ${{ secrets.WEBSITE_TOKEN }}   # <-- your PAT secret
         run: |
           set -euxo pipefail
           git status
           git add -A
           if ! git diff --cached --quiet; then
             git commit -m "deploy(site): update from logworks-site @ $GITHUB_SHA"
-            # ensure branch exists and push
             git branch -M main
-            git push origin main
+            # push using PAT explicitly (DON'T use 'origin main')
+            git push https://x-access-token:${GH_PAT}@github.com/skreieweydo/skreieweydo.github.io.git main
           else
             echo "No changes to deploy."
           fi
