@@ -2,7 +2,7 @@ name: build-and-deploy-to-user-site
 
 on:
   push:
-    branches: [ main ]   # change if your default branch differs
+    branches: [ main ] # change if your default branch differs
 
 jobs:
   build-and-publish:
@@ -11,8 +11,11 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false   # we'll use PAT for the target repo only
+          fetch-depth: 0
 
-      - name: Setup Node (for build scripts)
+      - name: Setup Node (for simple build scripts)
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -20,20 +23,33 @@ jobs:
       - name: Install deps (noop if none)
         run: npm ci || npm i
 
-      - name: Build site into dist/
-        run: npm run build
+      - name: Build static site into dist/
+        run: |
+          set -euxo pipefail
+          rm -rf dist
+          mkdir -p dist/css
+          cp index.html dist/
+          cp -R css/* dist/css/
+          # optional: prevent Jekyll interference if you ever add _ folders
+          touch dist/.nojekyll
 
-      - name: Checkout target user site
+      - name: Checkout target (user site repo)
         uses: actions/checkout@v4
         with:
           repository: skreieweydo/skreieweydo.github.io
           path: target
           token: ${{ secrets.PUBLISH_TOKEN }}
+          fetch-depth: 0
 
-      - name: Sync dist → target/
-        run: rsync -av --delete dist/ target/
+      - name: Replace target contents with dist/
+        run: |
+          set -euxo pipefail
+          # Clean everything in target except .git
+          find target -mindepth 1 -maxdepth 1 ! -name ".git" -exec rm -rf {} +
+          # Copy built files in
+          cp -R dist/* target/
 
-      - name: Commit & push to user site
+      - name: Commit & push changes
         working-directory: target
         env:
           GIT_AUTHOR_NAME: "GitHub Actions"
@@ -41,10 +57,14 @@ jobs:
           GIT_COMMITTER_NAME: "GitHub Actions"
           GIT_COMMITTER_EMAIL: "actions@github.com"
         run: |
+          set -euxo pipefail
+          git status
           git add -A
           if ! git diff --cached --quiet; then
             git commit -m "deploy(site): update from logworks-site @ $GITHUB_SHA"
-            git push origin HEAD:main
+            # ensure branch exists and push
+            git branch -M main
+            git push origin main
           else
             echo "No changes to deploy."
           fi
