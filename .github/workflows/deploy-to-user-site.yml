@@ -38,7 +38,7 @@ jobs:
         with:
           repository: skreieweydo/skreieweydo.github.io
           path: target
-          token: ${{ secrets.PUBLISH_TOKEN }}
+          token: ${{ secrets.WEBSITE_TOKEN }}
           fetch-depth: 0
 
       - name: Replace target contents with dist/
