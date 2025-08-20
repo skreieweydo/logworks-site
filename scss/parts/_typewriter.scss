@@ -1,0 +1,41 @@
+@use "../utils" as *;
+/* Typewriter effect (with JS “done” class support) */
+.typewriter{
+  --speed: 3.2s; --caret: 2px;
+  position:relative; margin:.35rem 0 .15rem 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  @include fluid(1rem, calc(1.2vw + .6rem), 1.25rem);
+  color: var(--gray-400);
+  min-height:1.6em;
+  display:block; max-width:100%; overflow:hidden;
+
+  &::before{
+    content: attr(data-text);
+    display:inline-block; white-space:nowrap; overflow:hidden; width:0ch;
+    border-right: var(--caret) solid rgba(255,255,255,.8);
+    animation: typing var(--speed) steps(var(--chars)) forwards,
+               caret 800ms steps(1) infinite;
+    max-width:100%;
+  }
+
+  &.delay-1::before{ animation-delay:.5s, .5s; }
+
+  &.done{ overflow:visible; }
+  &.done::before{
+    width:auto; max-width:100%; white-space:normal;
+    border-right:0; animation:none;
+  }
+}
+@keyframes typing{ to{ width: calc(var(--chars) * 1ch); } }
+@keyframes caret{ 50%{ border-color: transparent; } }
+
+/* Tiny-screen alternative */
+@include xs {
+  .typewriter{ overflow: visible; }
+  .typewriter::before{
+    width:auto; max-width:100%; white-space:normal; border-right:0;
+    animation: fadeIn 600ms ease 150ms forwards !important;
+  }
+  .delay-1::before{ animation-delay: 350ms !important; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+}

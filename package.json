@@ -4,9 +4,11 @@
   "description": "Source for the Skreieweydo Logworks website. Built with SCSS, modular assets, and automated GitHub Actions deploy to server.",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist && mkdir -p dist/css && cp index.html dist/ && cp -R css/* dist/css/",
-    "preview": "npm run build && npx serve dist -l 5173",
-	"clean": "rm -rf dist"
+	  "clean": "rm -rf dist && rm -rf css && rm -rf node_modules",
+	  "sass": "sass scss/main.scss css/main.css --no-source-map",
+	  "build": "npm run sass && rm -rf dist && mkdir -p dist/css && cp index.html dist/ && cp -R css/* dist/css/",
+	  "preview": "npm run build && npx serve dist -l 5173",
+	  "watch": "sass --watch scss/main.scss css/main.css --no-source-map"
   },
   "repository": {
     "type": "git",
@@ -20,5 +22,7 @@
   "bugs": {
     "url": "https://github.com/skreieweydo/logworks-site/issues"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "sass": "^1.90.0"
+  }
 }

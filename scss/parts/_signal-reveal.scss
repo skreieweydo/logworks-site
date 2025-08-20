@@ -1,0 +1,21 @@
+@use "../utils" as *;
+
+.signal-reveal{
+  margin:.6rem 0 1.2rem 0;
+  @include fluid(1.05rem, calc(1.6vw + .6rem), 1.35rem);
+  color: var(--gray-400);
+  position: relative; isolation: isolate;
+
+  .signal{
+    color:transparent;
+    background: linear-gradient(90deg, var(--gray-400) 0%, var(--white) 40%, var(--teal) 60%, var(--white) 100%);
+    -webkit-background-clip:text; background-clip:text;
+    filter: blur(2px) saturate(60%);
+    animation: clarify 1400ms ease-out 1s forwards;
+  }
+}
+@keyframes clarify{
+  0%{ filter:blur(3px) saturate(60%); letter-spacing:.6px; }
+  60%{ filter:blur(1.5px) saturate(90%); }
+  100%{ filter:blur(0) saturate(110%); letter-spacing:0; color:var(--white); }
+}

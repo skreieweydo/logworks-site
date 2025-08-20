@@ -1,0 +1,25 @@
+@use "../utils" as *;
+
+.contact{
+  margin-top:3rem;
+  h2{ margin:0 0 .25rem; @include fluid(1.3rem, calc(1.8vw + .6rem), 1.8rem); }
+  h4{ margin:.2rem 0 1rem; font-weight:500; color: var(--gray-400); }
+
+  &__items{
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:.75rem;
+  }
+
+  .contact-info-item{
+    display:flex; align-items:center; gap:.6rem;
+    background: rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:.75rem; padding:.7rem .8rem;
+    transition: background .2s ease, border-color .2s ease, transform .15s ease;
+
+    &:hover{ background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.16); transform: translateY(-1px); }
+
+    a{ color: var(--white); text-decoration:none; }
+    &-icon{ color: var(--teal); font-size: 1.1rem; width: 1.4rem; text-align:center; }
+    &-text{ color: var(--white); }
+  }
+}

@@ -1,0 +1,63 @@
+@use "sass:list"; 
+
+// Generic mixins + helpers
+@mixin fluid($min, $vw, $max){ font-size: clamp($min, $vw, $max); }
+
+@mixin container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+%sr-only{
+  position:absolute !important; width:1px; height:1px;
+  padding:0; margin:-1px; overflow:hidden; clip: rect(0,0,0,0);
+  white-space:nowrap; border:0;
+}
+
+@mixin transition-ease {
+    transition: all 0.5s ease-in-out;
+}
+ 
+@mixin box-shadow($offset-x, $offset-y, $blur-radius, $spread-radius, $color, $inset) {
+   @if($inset) {
+	  box-shadow: $offset-x $offset-y $blur-radius $spread-radius $color $inset;
+   }
+   box-shadow: $offset-x $offset-y $blur-radius $spread-radius $color;
+}
+
+%center-object {
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+%center-object-horz {
+   left: 50%;
+   transform: translateX(-50%);
+}
+%center {
+   justify-content: center;
+   align-items: center;
+}
+
+@mixin set-grid($num-rows, $num-cols) {
+    grid-template-rows: repeat($num-rows, auto); 
+    grid-template-columns: repeat($num-cols, auto);                                         
+}
+.hidden {
+    display: none;
+}
+%flex {
+   display: flex;
+   flex-direction: column;
+}
+%flex-center {
+   justify-content: center;
+   align-content: center;
+}
+%flex-around {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+   align-items: center;
+}

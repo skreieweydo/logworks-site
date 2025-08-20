@@ -1,0 +1,32 @@
+*, *::before, *::after {
+   box-sizing: border-box;
+   padding: 0;
+   margin: 0;
+}
+
+// Brand tokens (from current CSS :root)
+$ink: #0F1115;
+$slate: #1F2430;
+$teal: #2DD4BF;
+$amber: #F59E0B;
+$white: #FFFFFF;
+$gray-600: #475569;
+$gray-400: #94A3B8;
+$link-blue: #3B82F6;
+
+$maxw: 72rem;
+$radius: 14px;
+
+// Expose CSS custom properties (keeps runtime theming identical)
+:root{
+  --ink:#{$ink};
+  --slate:#{$slate};
+  --teal:#{$teal};
+  --amber:#{$amber};
+  --white:#{$white};
+  --gray-600:#{$gray-600};
+  --gray-400:#{$gray-400};
+  --maxw:#{$maxw};
+  --radius:#{$radius};
+  --link-blue:#{$link-blue};
+}

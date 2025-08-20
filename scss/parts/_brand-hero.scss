@@ -1,0 +1,21 @@
+@use "../utils" as *;
+
+.brand{
+  display:inline-flex; align-items:center; gap:.75rem; color:inherit; text-decoration:none;
+  &__icon{ width:40px; height:40px; border-radius:10px; }
+  &__wordmark{
+    font-weight:600; letter-spacing:.2px; font-size:1.05rem;
+    .lite{ color: var(--gray-400); font-weight:500; }
+    .bold{ color: var(--teal); font-weight:800; }
+  }
+}
+
+.hero{
+  @include container;
+  margin: 6rem auto 4rem; text-align:left;
+}
+.hero__title{
+  margin:0 0 .25rem 0; @include fluid(1.8rem, calc(3.2vw + 1rem), 3rem);
+  font-weight:800; letter-spacing:.2px;
+}
+.accent{ color: var(--teal); }
