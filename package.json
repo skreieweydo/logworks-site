@@ -1,0 +1,23 @@
+{
+  "name": "logworks-site",
+  "version": "1.0.0",
+  "description": "Source for the Skreieweydo Logworks website. Built with SCSS, modular assets, and automated GitHub Actions deploy to server.",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && mkdir -p dist/css && cp index.html dist/ && cp -R css/* dist/css/",
+    "preview": "npx serve dist -l 5173"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skreieweydo/logworks-site.git"
+  },
+  "keywords": [],
+  "author": "skreieweydo",
+  "homepage": "https://github.com/skreieweydo/logworks-site#readme",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/skreieweydo/logworks-site/issues"
+  },
+  "devDependencies": {}
+}
