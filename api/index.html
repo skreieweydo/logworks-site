@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Skreieweydo Logworks — Random API</title>
+  <link rel="icon" href="/assets/favicon.png" />
+  <!-- If you already have main.css, keep it and remove the <style> below or let it override -->
+  <style>
+    :root {
+      --bg: #0d1117;
+      --panel: #0f1522;
+      --ink: #e6edf3;
+      --muted: #9aa4af;
+      --accent: #00bfa5;
+      --border: #202938;
+      --code-bg: #0b1220;
+    }
+    html,body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width:1200px; margin:0 auto; padding:24px; display:grid; grid-template-columns: 290px 1fr; gap:24px; }
+    header { padding:16px 24px; border-bottom:1px solid var(--border); background:linear-gradient(180deg, rgba(0,191,165,0.06), transparent); }
+    header h1 { margin:0; font-size:20px; letter-spacing:.2px; }
+    nav.toc { position:sticky; top:16px; align-self:start; background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:16px; max-height: calc(100vh - 48px); overflow:auto; }
+    nav.toc h2 { margin:0 0 8px; font-size:14px; text-transform:uppercase; color:var(--muted); letter-spacing:.3px; }
+    nav.toc ul { list-style:none; padding:0; margin:0; }
+    nav.toc li { margin:6px 0; }
+    nav.toc li.section { margin-top:12px; color:var(--muted); font-size:12px; text-transform:uppercase; }
+    main { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:24px; }
+    h2 { margin-top:0; border-bottom:1px solid var(--border); padding-bottom:8px; }
+    h3 { margin-top:28px; color:#cfe9e4; }
+    .sig { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:var(--code-bg); color:#cfe9e4; border:1px solid var(--border); border-radius:8px; padding:10px 12px; display:inline-block; }
+    .note { color:var(--muted); font-size:14px; }
+    .code { background:var(--code-bg); border:1px solid var(--border); border-radius:8px; padding:12px; overflow:auto; }
+    pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:14px; }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; padding:2px 6px; border:1px solid var(--border); border-radius:6px; background:#0a111c; }
+    .pill { display:inline-block; padding:2px 8px; border:1px solid var(--border); border-radius:999px; font-size:12px; color:var(--muted); margin-left:8px;}
+    .top { position:fixed; right:18px; bottom:18px; background:var(--panel); border:1px solid var(--border); color:var(--ink); padding:8px 10px; border-radius:8px; text-decoration:none;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Skreieweydo Logworks — Random API <span class="pill">[min, max) by default</span></h1>
+  </header>
+
+  <div class="wrap">
+    <!-- LEFT: Table of Contents -->
+    <nav class="toc" aria-label="API Table of Contents">
+      <h2>Contents</h2>
+      <ul>
+        <li class="section">Random (class)</li>
+        <li><a href="#random">Overview</a></li>
+        <li><a href="#random-randominteger">randomInteger(min, max)</a></li>
+        <li><a href="#random-randomnumber">randomNumber(min, max)</a></li>
+        <li><a href="#random-zeroorone">zeroOrOne()</a></li>
+        <li><a href="#random-choice">choice&lt;T&gt;(array)</a></li>
+        <li><a href="#random-populate">Random.populate(n, start, end, frac?)</a></li>
+
+        <li class="section" style="margin-top:14px;">Utilities</li>
+        <li><a href="#util-validateNumber">validateNumber(value, name?, opts?)</a></li>
+        <li><a href="#util-isFloat">isFloat(value)</a></li>
+        <li><a href="#util-range">range(start, end)</a></li>
+        <li><a href="#util-seqN">seqN(n) <span class="note">natural numbers</span></a></li>
+
+        <li class="section" style="margin-top:14px;">Contracts &amp; Errors</li>
+        <li><a href="#contracts">Range semantics &amp; throws</a></li>
+
+        <li class="section" style="margin-top:14px;">Security</li>
+        <li><a href="#security">Web Crypto boundary</a></li>
+      </ul>
+    </nav>
+
+    <!-- RIGHT: Content -->
+    <main id="api">
+      <section id="random">
+        <h2>Random (class)</h2>
+        <p class="note">Non-deterministic draws via methods (verbs). <strong>Half-open</strong> ranges by default: <code>[min, max)</code>. For secrets, see <a href="#security">Security</a>.</p>
+        <div class="code"><pre><code class="language-ts">import { Random } from "@skreieweydo/random";
+
+const rng = new Random();             // non-seedable (for now)
+
+// integers in [1, 7) → 1..6
+const i = rng.randomInteger(1, 7);
+
+// floats in [0, 1)
+const x = rng.randomNumber(0, 1);
+
+// coin flip 0 or 1
+const z = rng.zeroOrOne();
+
+// pick one element (throws on empty)
+const color = rng.choice(["red","green","blue"]);
+
+// bulk generation
+const ints = Random.populate(5, 10, 20);       // [10,20)
+const fracs = Random.populate(3, 0, 1, true);  // [0,1) floats</code></pre></div>
+      </section>
+
+      <section id="random-randominteger">
+        <h3><span class="sig">randomInteger(min: number, max: number): number</span></h3>
+        <p>Returns a uniformly distributed integer in <code>[min, max)</code> (includes <code>min</code>, excludes <code>max</code>). Throws if <code>min &gt;= max</code> or inputs are not finite numbers.</p>
+        <div class="code"><pre><code class="language-ts">rng.randomInteger(1, 7)   // → an int 1..6</code></pre></div>
+      </section>
+
+      <section id="random-randomnumber">
+        <h3><span class="sig">randomNumber(min: number, max: number): number</span></h3>
+        <p>Returns a float in <code>[min, max)</code>. Precision follows IEEE-754; at large magnitudes, adjacent floats widen.</p>
+        <div class="code"><pre><code class="language-ts">rng.randomNumber(0, 1)    // → 0 ≤ x &lt; 1</code></pre></div>
+      </section>
+
+      <section id="random-zeroorone">
+        <h3><span class="sig">zeroOrOne(): 0 | 1</span></h3>
+        <p>Returns <code>0</code> or <code>1</code> with equal probability.</p>
+        <div class="code"><pre><code class="language-ts">rng.zeroOrOne()           // → 0 or 1</code></pre></div>
+      </section>
+
+      <section id="random-choice">
+        <h3><span class="sig">choice&lt;T&gt;(array: T[]): T</span></h3>
+        <p>Returns a random element from <code>array</code>. Throws if <code>array.length === 0</code>.</p>
+        <div class="code"><pre><code class="language-ts">rng.choice(["red","green","blue"]) // → one of them</code></pre></div>
+      </section>
+
+      <section id="random-populate">
+        <h3><span class="sig">static populate(n: number, start: number, end: number, frac?: boolean): number[]</span></h3>
+        <p>Generates <code>n</code> values in <code>[start, end)</code>. Integers by default; pass <code>frac = true</code> for floats. Validates <code>n &gt; 0</code> and <code>start &lt; end</code>.</p>
+        <div class="code"><pre><code class="language-ts">Random.populate(5, 10, 20)        // ints [10,20)
+Random.populate(3, 0, 1, true)    // floats [0,1)</code></pre></div>
+      </section>
+
+      <section id="util-validateNumber">
+        <h2>Utilities</h2>
+        <h3><span class="sig">validateNumber(value: unknown, name?: string, opts?: { finite?: boolean }): number</span></h3>
+        <p>Asserts that <code>value</code> is a number (optionally finite) and returns it; otherwise throws a typed error including <code>name</code>.</p>
+      </section>
+
+      <section id="util-isFloat">
+        <h3><span class="sig">isFloat(value: unknown): value is number</span></h3>
+        <p>Type guard: true when <code>typeof value === "number"</code> and <code>Number.isFinite(value)</code>.</p>
+      </section>
+
+      <section id="util-range">
+        <h3><span class="sig">range(start: number, end: number): number[]</span></h3>
+        <p>Returns integers in <code>[start, end)</code> (Python-like). <span class="note">Pairs nicely with half-open contracts.</span></p>
+        <div class="code"><pre><code class="language-ts">range(0, 5) // → [0,1,2,3,4]</code></pre></div>
+      </section>
+
+      <section id="util-seqN">
+        <h3><span class="sig">seqN(n: number): number[]</span></h3>
+        <p>Returns the first <em>n</em> natural numbers starting at 0: <code>[0, 1, ..., n-1]</code>.</p>
+        <div class="code"><pre><code class="language-ts">seqN(4) // → [0,1,2,3]</code></pre></div>
+      </section>
+
+      <section id="contracts">
+        <h2>Contracts &amp; Errors</h2>
+        <ul>
+          <li><strong>Ranges:</strong> <code>[min, max)</code> by default; inclusive only when explicitly documented.</li>
+          <li><strong>Throws:</strong> <code>min &gt;= max</code>, non-finite inputs, <code>choice([])</code>, <code>populate(n &lt;= 0)</code>.</li>
+          <li><strong>Precision:</strong> floats follow IEEE-754; expect widening gaps at large magnitudes.</li>
+          <li><strong>Nondeterminism:</strong> draws are methods (verbs), not properties.</li>
+        </ul>
+      </section>
+
+      <section id="security">
+        <h2>Security boundary</h2>
+        <p><strong>Not for secrets.</strong> For cryptographic randomness or IDs, use Web Crypto:</p>
+        <div class="code"><pre><code class="language-ts">const bytes = new Uint8Array(16);
+crypto.getRandomValues(bytes);</code></pre></div>
+      </section>
+    </main>
+  </div>
+
+  <a class="top" href="#api" aria-label="Back to top">↑ Top</a>
+</body>
+</html>
+

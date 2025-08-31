@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Skreieweydo Blog</title>
+    <link>https://skreieweydo.github.io/blog/</link>
+    <description>Articles and notes.</description>
+    <lastBuildDate>Sun, 31 Aug 2025 04:06:59 GMT</lastBuildDate>
+    <docs>https://cyber.harvard.edu/rss/rss.html</docs>
+    <generator>build-blog.mjs</generator>
+    <atom:link href="https://skreieweydo.github.io/blog/rss.xml" rel="self" type="application/rss+xml" xmlns:atom="http://www.w3.org/2005/Atom"/>
+    
+    <item>
+      <title>2025-09-01-hello-world</title>
+      <link>https://skreieweydo.github.io/blog/2025-09-01-hello-world/</link>
+      <guid isPermaLink="true">https://skreieweydo.github.io/blog/2025-09-01-hello-world/</guid>
+      <pubDate>Sun, 31 Aug 2025 00:00:00 GMT</pubDate>
+      
+      <description><![CDATA[]]></description>
+    </item>
+  
+
+    <item>
+      <title>Noise → Signal in Logging</title>
+      <link>https://skreieweydo.github.io/blog/noise-to-signal/</link>
+      <guid isPermaLink="true">https://skreieweydo.github.io/blog/noise-to-signal/</guid>
+      <pubDate>Wed, 27 Aug 2025 00:00:00 GMT</pubDate>
+      <category>logging</category><category>typescript</category><category>testing</category>
+      <description><![CDATA[A practical path from log noise to actionable signal.]]></description>
+    </item>
+  
+  </channel>
+</rss>

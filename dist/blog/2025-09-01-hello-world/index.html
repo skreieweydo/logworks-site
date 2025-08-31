@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2025-09-01-hello-world — Blog</title>
+  <meta name="description" content="" />
+  <link rel="canonical" href="https://example.com/blog/2025-09-01-hello-world/" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="alternate" type="application/rss+xml" title="Blog RSS" href="/blog/rss.xml" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand">Skreieweydo</a>
+      <nav><a href="/blog/">Blog</a></nav>
+    </div>
+  </header>
+
+  <main class="container prose">
+    <article>
+      <h1>2025-09-01-hello-world</h1>
+      <p class="muted">2025-08-31</p>
+      <div class="post-body">
+        <pre><code class="language-markdown">---
+id: 2025-09-01-hello-world
+title: &quot;Hello, World (Now With Canonicals)&quot;
+slug: hello-world
+date: 2025-09-01
+tags: [announcement, blog]
+description: &quot;The first post of the new blog, with proper canonical URLs for syndication.&quot;
+canonical: &quot;https://example.com/blog/hello-world/&quot;
+draft: false
+---
+
+This is a short hello-world post to prove out the pipeline.
+
+- Markdown → HTML at build time
+- `/blog/slug/index.html` output
+- `/blog/rss.xml` for syndication
+- Canonical URLs set to point home
+
+That’s it. 🎉
+</code></pre>
+
+      </div>
+      <p class="tags">Tags: </p>
+    </article>
+    <p><a href="/blog/">← All posts</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="y"></span> Skreieweydo • <a href="/">Home</a></p>
+    </div>
+    <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+  </footer>
+</body>
+</html>

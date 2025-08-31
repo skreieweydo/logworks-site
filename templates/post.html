@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{title}} — Blog</title>
+  <meta name="description" content="{{description}}" />
+  <link rel="canonical" href="{{canonical}}" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="alternate" type="application/rss+xml" title="Blog RSS" href="/blog/rss.xml" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand">Skreieweydo</a>
+      <nav><a href="/blog/">Blog</a></nav>
+    </div>
+  </header>
+
+  <main class="container prose">
+    <article>
+      <h1>{{title}}</h1>
+      <p class="muted">{{date}}</p>
+      <div class="post-body">
+        {{content}}
+      </div>
+      <p class="tags">Tags: {{tags}}</p>
+    </article>
+    <p><a href="/blog/">← All posts</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="y"></span> Skreieweydo • <a href="/">Home</a></p>
+    </div>
+    <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+  </footer>
+</body>
+</html>

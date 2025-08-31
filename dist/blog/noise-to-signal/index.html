@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Noise → Signal in Logging — Blog</title>
+  <meta name="description" content="A practical path from log noise to actionable signal." />
+  <link rel="canonical" href="https://example.com/blog/noise-to-signal/" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="alternate" type="application/rss+xml" title="Blog RSS" href="/blog/rss.xml" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand">Skreieweydo</a>
+      <nav><a href="/blog/">Blog</a></nav>
+    </div>
+  </header>
+
+  <main class="container prose">
+    <article>
+      <h1>Noise → Signal in Logging</h1>
+      <p class="muted">Tue Aug 26 2025 17:00:00 GMT-0700 (Mountain Standard Time)</p>
+      <div class="post-body">
+        <p>Logging should help you <em>act</em>, not just collect noise. In this post we walk through
+a minimal, typed approach to going from noisy logs to actionable signal.</p>
+<h2>Why logs get noisy</h2>
+<ul>
+<li>No clear levels or categories</li>
+<li>No consistent structure</li>
+<li>Missing context (request id, user id, feature flag)</li>
+<li>Excessive debug logs left in production</li>
+</ul>
+<h2>A minimum viable structure</h2>
+<pre><code class="language-ts">type Log = {
+  level: &quot;info&quot; | &quot;warn&quot; | &quot;error&quot;;
+  msg: string;
+  ctx?: Record&lt;string, string | number | boolean&gt;;
+};
+
+Keep fields consistent and normalize message formats. Then add sampling and centralized sinks (with privacy-first defaults).
+</code></pre>
+
+      </div>
+      <p class="tags">Tags: logging, typescript, testing</p>
+    </article>
+    <p><a href="/blog/">← All posts</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="y"></span> Skreieweydo • <a href="/">Home</a></p>
+    </div>
+    <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+  </footer>
+</body>
+</html>

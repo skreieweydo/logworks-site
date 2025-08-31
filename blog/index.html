@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog</title>
+  <meta name="description" content="Articles and notes." />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="alternate" type="application/rss+xml" title="Blog RSS" href="/blog/rss.xml" />
+</head>
+<body class="blog">
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand">Skreieweydo</a>
+      <nav><a href="/blog/">Blog</a></nav>
+    </div>
+  </header>
+
+  <main class="container prose">
+    <h1>Blog</h1>
+    <ul class="post-list">
+      <li>
+    <a href="/blog/2025-09-01-hello-world/"><strong>2025-09-01-hello-world</strong></a>
+    <span class="muted"> — 2025-08-31</span><br/>
+    <span class="desc"></span>
+  </li>
+<li>
+    <a href="/blog/noise-to-signal/"><strong>Noise → Signal in Logging</strong></a>
+    <span class="muted"> — Tue Aug 26 2025 17:00:00 GMT-0700 (Mountain Standard Time)</span><br/>
+    <span class="desc">A practical path from log noise to actionable signal.</span>
+  </li>
+    </ul>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="y"></span> Skreieweydo • <a href="/">Home</a></p>
+    </div>
+    <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+  </footer>
+</body>
+</html>

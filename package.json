@@ -4,11 +4,13 @@
   "description": "Source for the Skreieweydo Logworks website. Built with SCSS, modular assets, and automated GitHub Actions deploy to server.",
   "main": "index.js",
   "scripts": {
-	  "clean": "rm -rf css && rm -rf node_modules",
+	  "clean": "rm -rf css && rm -rf node_modules && rm -rf dist",
 	  "sass": "sass scss/main.scss css/main.css --no-source-map",
-	  "build": "npm run sass && rm -rf dist && mkdir -p dist/css && cp index.html dist/ && cp -R css/* dist/css/",
+	  "build": "npm run sass && rm -rf dist && mkdir -p dist/css && cp index.html dist/ && cp -R css/* dist/css/ && mkdir -p dist/api && cp -R api/* dist/api/ && mkdir -p dist/blog && cp -R blog/* dist/blog",
 	  "preview": "npm run build && npx serve dist -l 5173",
-	  "watch": "sass --watch scss/main.scss css/main.css --no-source-map"
+	  "watch": "sass --watch scss/main.scss css/main.css --no-source-map",
+	  "build:blog": "node scripts/build-blog.mjs",
+      "clean:blog": "node -e \"import('node:fs/promises').then(fs=>fs.rm('blog',{recursive:true,force:true}))"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,8 @@
     "url": "https://github.com/skreieweydo/logworks-site/issues"
   },
   "devDependencies": {
-    "sass": "^1.90.0"
+    "sass": "^1.90.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^12.0.2"
   }
 }

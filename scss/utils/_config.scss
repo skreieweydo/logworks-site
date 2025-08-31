@@ -1,8 +1,13 @@
+@use "sass:color";
+
 *, *::before, *::after {
    box-sizing: border-box;
    padding: 0;
    margin: 0;
 }
+
+$maxw: 72rem;
+$radius: 14px;
 
 // Brand tokens (from current CSS :root)
 $ink: #0F1115;
@@ -13,9 +18,13 @@ $white: #FFFFFF;
 $gray-600: #475569;
 $gray-400: #94A3B8;
 $link-blue: #3B82F6;
+$font-base: 1rem;          // matches your body font size in main.css (16px)
+$font-sm: 0.875rem;        // a small step down
+$radius-md: $radius;       // you already have 14px defined
+$brand-accent: $teal;      // teal is your accent
+$gray-100: color.adjust($gray-400, $lightness: 35%);
 
-$maxw: 72rem;
-$radius: 14px;
+$blog-bg: #E6FBF8;
 
 // Expose CSS custom properties (keeps runtime theming identical)
 :root{
