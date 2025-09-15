@@ -18,11 +18,25 @@ jobs:
       - name: Build static site into dist/
         run: |
           set -euxo pipefail
+
+          # Clean old dist
           rm -rf dist
+
           # ---- whitelist only prod assets into dist ----
           mkdir -p dist/css
+
           cp index.html dist/
           cp -R css/* dist/css/ || true
+
+          # Copy page directories
+          PAGES="api blog quickstart"
+          for dir in $PAGES; do
+            if [ -d "$dir" ]; then
+              mkdir -p "dist/$dir"
+              cp -R "$dir/"* "dist/$dir/"
+            fi
+          done
+
           # If/when you add these, uncomment as needed:
           # mkdir -p dist/js && cp -R js/* dist/js
           # mkdir -p dist/favicons && cp -R favicons/* dist/favicons
