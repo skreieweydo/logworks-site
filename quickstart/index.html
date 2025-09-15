@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Skreieweydo Logworks — Random Quickstart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Five-minute path to first success with Random: bounded ints/floats, clear contracts, typed semantics." />
+  <link rel="icon" href="/assets/favicon.png" />
+  <style>
+    :root{
+      --bg:#0d1117;--panel:#0f1522;--ink:#e6edf3;--muted:#9aa4af;--accent:#00bfa5;--border:#202938;--code:#0b1220;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,sans-serif}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{padding:28px 20px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(0,191,165,.06),transparent)}
+    .wrap{max-width:1000px;margin:0 auto;padding:28px 20px}
+    h1{margin:0 0 8px;font-size:24px}
+    h2{margin:28px 0 10px;font-size:20px;border-bottom:1px solid var(--border);padding-bottom:6px}
+    h3{margin:20px 0 8px;color:#cfe9e4}
+    p.note{color:var(--muted);margin-top:6px}
+    .pill{display:inline-block;padding:2px 8px;border:1px solid var(--border);border-radius:999px;font-size:12px;color:var(--muted);margin-left:8px}
+    .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px;margin:14px 0}
+    pre{margin:0;background:var(--code);border:1px solid var(--border);border-radius:10px;overflow:auto}
+    code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;color:#cfe9e4}
+    .codebox{position:relative}
+    .copy{position:absolute;top:8px;right:8px;background:#0a111c;color:var(--ink);border:1px solid var(--border);border-radius:8px;
+          font-size:12px;padding:6px 8px;cursor:pointer}
+    ul{margin:8px 0 8px 20px}
+    .grid{display:grid;gap:16px}
+    @media(min-width:800px){.grid{grid-template-columns:1fr 1fr}}
+    .hr{height:1px;background:var(--border);margin:24px 0}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:2px 6px;border:1px solid var(--border);border-radius:6px;background:#0a111c}
+    footer{padding:28px 20px;color:var(--muted)}
+    .callout{border-left:3px solid var(--accent);padding:10px 12px;background:#0c141f;border-radius:8px;margin:12px 0}
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <h1>Random Quickstart <span class="pill">[min, max) by default</span></h1>
+    <p class="note">Five-minute path to first success: bounded integers/floats with explicit, test-friendly semantics. Privacy by default. Zero deps.</p>
+  </header>
+
+  <main class="wrap">
+    <section id="what">
+      <h2>What this is</h2>
+      <div class="card">
+        <p><strong>Random</strong> is a tiny JS/TS utility for drawing numbers with <em>clear contracts</em>:</p>
+        <ul>
+          <li><strong>Half-open ranges</strong> by default: <code>[min, max)</code> (include <code>min</code>, exclude <code>max</code>)</li>
+          <li><strong>Methods, not properties</strong>: draws are explicit calls like <code>randomInteger()</code></li>
+          <li><strong>Validation</strong>: invalid inputs throw (no silent fixes)</li>
+          <li><strong>Zero dependencies</strong>; <strong>privacy-first</strong> (no tracking, no network calls)</li>
+        </ul>
+        <div class="callout"><strong>Use it for:</strong> tests, simulations, data seeding, generative content. <strong>Not</strong> for secrets — for crypto-grade randomness, use Web Crypto.</div>
+      </div>
+    </section>
+
+    <section id="install">
+      <h2>Install / Use</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>npm (when published)</h3>
+          <p class="note">If your npm scope is <code>@skreio</code>:</p>
+          <div class="codebox"><button class="copy">Copy</button><pre><code>npm i @skreio/random
+# or: pnpm add @skreio/random
+# or: yarn add @skreio/random</code></pre></div>
+          <div class="codebox" style="margin-top:10px;"><button class="copy">Copy</button><pre><code>import { Random } from '@skreio/random';
+
+const rng = new Random(); // non-seedable (for now)</code></pre></div>
+        </div>
+        <div class="card">
+          <h3>No install yet?</h3>
+          <p class="note">Package not live? You can still follow the contracts below, or copy the safe formulas for inclusive/half-open behavior. Bookmark this page; update your code when npm is live.</p>
+          <div class="codebox"><button class="copy">Copy</button><pre><code>// Inclusive ints [min,max] (fallback formula):
+const i = Math.floor(Math.random()*(max-min+1)) + min;
+
+// Half-open ints [min,max):
+const j = min + Math.floor(Math.random()*(max-min));</code></pre></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="first-draw">
+      <h2>Your first draw</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Integers <span class="pill">[min, max)</span></h3>
+          <p class="note">Uniform ints from <code>min</code> up to (but excluding) <code>max</code>.</p>
+          <div class="codebox"><button class="copy">Copy</button><pre><code>// ints in [1,7) → 1..6
+const rng = new Random();
+const n = rng.randomInteger(1, 7);</code></pre></div>
+        </div>
+        <div class="card">
+          <h3>Floats <span class="pill">[min, max)</span></h3>
+          <p class="note">Uniform floats from <code>min</code> up to (but excluding) <code>max</code>.</p>
+          <div class="codebox"><button class="copy">Copy</button><pre><code>// floats in [0,1)
+const rng = new Random();
+const x = rng.randomNumber(0, 1);</code></pre></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="helpers">
+      <h2>Handy helpers</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Coin flip</h3>
+          <div class="codebox"><button class="copy">Copy</button><pre><code>rng.zeroOrOne(); // 0 or 1 (uniform)</code></pre></div>
+        </div>
+        <div class="card">
+          <h3>Pick one</h3>
+          <div class="codebox"><button class="copy">Copy</button><pre><code>// throws if array is empty
+rng.choice(['red','green','blue']);</code></pre></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="bulk">
+      <h2>Bulk generation</h2>
+      <div class="card">
+        <p>Generate sequences with validation (ints by default; set <code>frac=true</code> for floats):</p>
+        <div class="codebox"><button class="copy">Copy</button><pre><code>// ints in [10,20)
+const xs = Random.populate(5, 10, 20);
+
+// floats in [0,1)
+const ys = Random.populate(3, 0, 1, true);</code></pre></div>
+        <p class="note">Validates <code>n &gt; 0</code> and <code>start &lt; end</code>. Same half-open contract.</p>
+      </div>
+    </section>
+
+    <section id="contracts">
+      <h2>Contracts &amp; errors</h2>
+      <div class="card">
+        <ul>
+          <li><strong>Default range:</strong> <code>[min, max)</code>. Use inclusive only when you truly need the upper bound.</li>
+          <li><strong>Throws:</strong> <code>min &gt;= max</code>, non-finite inputs, <code>choice([])</code>, <code>populate(n &lt;= 0)</code>.</li>
+          <li><strong>Nondeterminism = methods:</strong> <code>rng.randomNumber()</code> (not a property).</li>
+          <li><strong>IEEE-754 note:</strong> float spacing widens at large magnitudes; for fixed-precision buckets, draw ints then scale.</li>
+        </ul>
+        <div class="codebox"><button class="copy">Copy</button><pre><code>// Defensive usage
+try {
+  const roll = rng.randomInteger(1, 7);
+  // ...
+} catch (err) {
+  // handle programmer error (e.g., min >= max)
+}</code></pre></div>
+      </div>
+    </section>
+
+    <section id="negatives">
+      <h2>Negative ranges</h2>
+      <div class="card">
+        <p>Same rules apply—half-open by default:</p>
+        <div class="codebox"><button class="copy">Copy</button><pre><code>const z = rng.randomInteger(-5, 0); // → -5..-1</code></pre></div>
+      </div>
+    </section>
+
+    <section id="inclusive">
+      <h2>Inclusive variant</h2>
+      <div class="card">
+        <p>Use inclusive only when you truly need <code>max</code>. Safe formula:</p>
+        <div class="codebox"><button class="copy">Copy</button><pre><code>// [min, max] inclusive
+const i = Math.floor(Math.random()*(max-min+1)) + min;</code></pre></div>
+      </div>
+    </section>
+
+    <section id="security">
+      <h2>Security boundary</h2>
+      <div class="card">
+        <p><strong>Not for secrets.</strong> For cryptographic randomness or IDs, use Web Crypto:</p>
+        <div class="codebox"><button class="copy">Copy</button><pre><code>const bytes = new Uint8Array(16);
+crypto.getRandomValues(bytes);</code></pre></div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2>FAQ / Troubleshooting</h2>
+      <div class="card">
+        <p><strong>Q:</strong> Why did I get an error on <code>randomInteger(5,5)</code>?<br />
+           <strong>A:</strong> Ranges must be non-empty; the contract is <code>start &lt; end</code>. Use inclusive formula if you truly need to include both ends.</p>
+        <p><strong>Q:</strong> Why not a property like <code>rng.randomNumber</code>?<br />
+           <strong>A:</strong> Properties imply cached state; draws are non-deterministic actions, so they’re methods.</p>
+        <p><strong>Q:</strong> Can I seed it?<br />
+           <strong>A:</strong> Not yet. Current <code>Random</code> is non-seedable; for replayable runs you’ll want a seedable PRNG (planned).</p>
+      </div>
+    </section>
+
+    <div class="hr"></div>
+
+    <section id="next">
+      <h2>Next steps</h2>
+      <ul>
+        <li><a href="/api.html">Browse the full API</a></li>
+        <li><a href="/blog/">Read the latest post</a></li>
+      </ul>
+      <p class="note">When npm is live, this page will add a one-line install banner at the top.</p>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <small>© Skreieweydo Logworks — Developer-first utilities. Noise → Signal.</small>
+  </footer>
+
+  <script>
+    // Add "Copy" buttons for all code blocks
+    document.querySelectorAll('.codebox').forEach(box=>{
+      const btn = box.querySelector('.copy');
+      const pre = box.querySelector('pre');
+      if(!btn||!pre) return;
+      btn.addEventListener('click', async ()=>{
+        try{
+          const text = pre.innerText.replace(/\n$/, '');
+          await navigator.clipboard.writeText(text);
+          const old = btn.textContent; btn.textContent='Copied';
+          setTimeout(()=>btn.textContent=old,1200);
+        }catch(e){ btn.textContent='Error'; setTimeout(()=>btn.textContent='Copy',1200); }
+      });
+    });
+  </script>
+</body>
+</html>
