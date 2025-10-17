@@ -29,7 +29,7 @@ jobs:
           cp -R css/* dist/css/ || true
 
           # Copy page directories
-          PAGES="api blog quickstart"
+          PAGES="api blog quickstart notes"
           for dir in $PAGES; do
             if [ -d "$dir" ]; then
               mkdir -p "dist/$dir"
