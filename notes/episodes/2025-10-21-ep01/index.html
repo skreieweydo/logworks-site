@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ep — Skreieweydo Notes</title><link rel="stylesheet" href="/src/styles/obs-notes.css"></head> <body> <nav class="site"> <div class="brand">Skreieweydo Notes</div> <div style="opacity:.9"> <a href="/">Home</a> · <a href="/episodes">Episodes</a> · <a href="/about">About</a> </div> </nav> <main class="main">  <article> <h1>Ep</h1> <p class="muted">Tue, Oct 21, 2025</p> <blockquote>
+<p><strong>Goals</strong> — set up the project skeleton, validate the workflow with <strong>small tests</strong>, and ship a tiny, correct demo.</p>
+</blockquote>
+<h2 id="timestamps">Timestamps</h2>
+<table class="console">
+  <thead>
+    <tr><th>Action</th><th>Mark</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Cold open — goals &#x26; plan</td><td>00:00</td></tr>
+    <tr><td>Project skeleton — dirs, Makefile, test runner</td><td>04:15</td></tr>
+    <tr><td>First test — FiveAM basics; red → green → refactor</td><td>18:40</td></tr>
+    <tr><td>FP baseline — purity, seams, refs</td><td>38:00</td></tr>
+    <tr><td>Demo — compose + test a minimal pipeline</td><td>1:06:30</td></tr>
+    <tr><td>Q&#x26;A / wrap — next steps</td><td>1:40:10</td></tr>
+  </tbody>
+</table>
+<h2 id="code">Code</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="lisp"><code><span class="line"><span style="color:#E1E4E8">(</span><span style="color:#F97583">defun</span><span style="color:#B392F0"> sum-list</span><span style="color:#E1E4E8"> (xs)</span></span>
+<span class="line"><span style="color:#E1E4E8">  (</span><span style="color:#F97583">if</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">endp</span><span style="color:#E1E4E8"> xs) </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">+</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">car</span><span style="color:#E1E4E8"> xs) (sum-list (</span><span style="color:#79B8FF">cdr</span><span style="color:#E1E4E8"> xs)))))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">References</span></span>
+<span class="line"><span style="color:#E1E4E8">•	FiveAM quickstart</span></span>
+<span class="line"><span style="color:#E1E4E8">•	FP laws cheat sheet</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">Changelog</span></span>
+<span class="line"><span style="color:#E1E4E8">•	2025-10-21 — Initial notes</span></span></code></pre> </article>  </main> </body></html>

@@ -6,7 +6,7 @@
   "scripts": {
 	  "clean": "rm -rf css && rm -rf node_modules && rm -rf dist",
 	  "sass": "sass scss/main.scss css/main.css --no-source-map",
-	  "build": "npm run sass && rm -rf dist && mkdir -p dist/css && cp index.html dist/ && cp -R css/* dist/css/ && mkdir -p dist/api && cp -R api/* dist/api/ && mkdir -p dist/blog && cp -R blog/* dist/blog",
+	  "build": "npm run sass && rm -rf dist && mkdir -p dist/css && cp index.html dist/ && cp -R css/* dist/css/ && mkdir -p dist/api && cp -R api/* dist/api/ && mkdir -p dist/blog && cp -R blog/* dist/blog && mkdir -p dist/notes && cp -R notes/* dist/notes/",
 	  "preview": "npm run build && npx serve dist -l 5173",
 	  "watch": "sass --watch scss/main.scss css/main.css --no-source-map",
 	  "build:blog": "node scripts/build-blog.mjs",

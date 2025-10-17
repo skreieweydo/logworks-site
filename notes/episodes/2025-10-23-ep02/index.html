@@ -1,0 +1,18 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ep — Skreieweydo Notes</title><link rel="stylesheet" href="/src/styles/obs-notes.css"></head> <body> <nav class="site"> <div class="brand">Skreieweydo Notes</div> <div style="opacity:.9"> <a href="/">Home</a> · <a href="/episodes">Episodes</a> · <a href="/about">About</a> </div> </nav> <main class="main">  <article> <h1>Ep</h1> <p class="muted">Thu, Oct 23, 2025</p> <h2 id="timestamps">Timestamps</h2>
+<table class="console">
+  <thead><tr><th>Action</th><th>Mark</th></tr></thead>
+  <tbody>
+    <tr><td>Sequences, folds, property tests</td><td>00:00</td></tr>
+    <tr><td>Shape → performance implications</td><td>24:30</td></tr>
+  </tbody>
+</table>
+<h2 id="code">Code</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="lisp"><code><span class="line"><span style="color:#E1E4E8">(</span><span style="color:#F97583">defun</span><span style="color:#B392F0"> normalize</span><span style="color:#E1E4E8"> (xs)</span></span>
+<span class="line"><span style="color:#E1E4E8">  (</span><span style="color:#F97583">let*</span><span style="color:#E1E4E8"> ((</span><span style="color:#79B8FF">min</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">apply</span><span style="color:#79B8FF"> #'min</span><span style="color:#E1E4E8"> xs))</span></span>
+<span class="line"><span style="color:#E1E4E8">         (</span><span style="color:#79B8FF">max</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">apply</span><span style="color:#79B8FF"> #'max</span><span style="color:#E1E4E8"> xs)))</span></span>
+<span class="line"><span style="color:#E1E4E8">    (</span><span style="color:#79B8FF">mapcar</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">lambda</span><span style="color:#E1E4E8"> (x)</span></span>
+<span class="line"><span style="color:#E1E4E8">              (</span><span style="color:#79B8FF">/</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">-</span><span style="color:#E1E4E8"> x </span><span style="color:#79B8FF">min</span><span style="color:#E1E4E8">) (</span><span style="color:#79B8FF">max</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">-</span><span style="color:#79B8FF"> max</span><span style="color:#79B8FF"> min</span><span style="color:#E1E4E8">))))</span></span>
+<span class="line"><span style="color:#E1E4E8">            xs)))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">Changelog</span></span>
+<span class="line"><span style="color:#E1E4E8">•	2025-10-23 — Initial notes</span></span></code></pre> </article>  </main> </body></html>
